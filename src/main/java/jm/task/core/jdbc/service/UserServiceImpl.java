@@ -4,11 +4,13 @@ import jm.task.core.jdbc.dao.UserDao;
 import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
+
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDao = new UserDaoJDBCImpl();
+    private UserDao userDao = new UserDaoHibernateImpl();
 
     @Override
     public void createUsersTable() {
@@ -38,5 +40,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void cleanUsersTable() {
         userDao.cleanUsersTable();
+    }
+
+    @Override
+    public void close() {
+        userDao.close();
     }
 }

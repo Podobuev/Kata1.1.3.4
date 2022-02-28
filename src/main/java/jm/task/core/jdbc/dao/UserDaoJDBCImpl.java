@@ -24,6 +24,7 @@ public class UserDaoJDBCImpl implements UserDao {
             System.out.println("Таблица User созданна");
             connection.commit();
 
+
         } catch (SQLException e) {
             try {
                 connection.rollback();
@@ -138,6 +139,15 @@ public class UserDaoJDBCImpl implements UserDao {
             } catch (SQLException e2) {
                 e2.printStackTrace();
             }
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

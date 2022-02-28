@@ -28,6 +28,8 @@ public class Main {
 
         userService.dropUsersTable();
 
+        userService.close();
+
     }
 }
 

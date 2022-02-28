@@ -17,6 +17,9 @@ public class UserDaoHibernateImpl implements UserDao {
 
     private final SessionFactory sessionFactory = new Util().session();
 
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
 
     @Override
     public void createUsersTable() {
@@ -64,9 +67,9 @@ public class UserDaoHibernateImpl implements UserDao {
     @Transactional
     public void saveUser(String name, String lastName, byte age) {
 
-        Transaction transaction =null;
+        Transaction transaction = null;
 
-        try  {
+        try {
             Session session = sessionFactory.getCurrentSession();
             transaction = session.beginTransaction();
             session.save(new User(name, lastName, age));
@@ -85,7 +88,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void removeUserById(long id) {
 
         Transaction transaction = null;
-        try  {
+        try {
             Session session = sessionFactory.getCurrentSession();
             transaction = session.beginTransaction();
             session.delete(session.get(User.class, id));
@@ -125,7 +128,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
         Transaction transaction = null;
 
-        try  {
+        try {
             Session session = sessionFactory.getCurrentSession();
             transaction = session.beginTransaction();
             session.createQuery("DELETE FROM User w").executeUpdate();
@@ -135,6 +138,13 @@ public class UserDaoHibernateImpl implements UserDao {
                 transaction.rollback();
             }
             System.out.println(e);
+        }
+    }
+
+    @Override
+    public void close() {
+        if (sessionFactory != null) {
+            sessionFactory.close();
         }
     }
 }
