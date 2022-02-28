@@ -8,7 +8,7 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDao = new UserDaoHibernateImpl();
+    private UserDao userDao = new UserDaoJDBCImpl();
 
     @Override
     public void createUsersTable() {
@@ -38,5 +38,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void cleanUsersTable() {
         userDao.cleanUsersTable();
+    }
+
+    @Override
+    public void close() {
+        userDao.close();
     }
 }

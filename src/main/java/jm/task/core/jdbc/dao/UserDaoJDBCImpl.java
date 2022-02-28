@@ -141,4 +141,16 @@ public class UserDaoJDBCImpl implements UserDao {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void close() {
+        try {
+            if (connection != null) {
+                connection.close();
+                System.out.println("Connection is closed");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
